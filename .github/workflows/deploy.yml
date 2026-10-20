@@ -1,4 +1,4 @@
-name: Check and deploy website
+name: Deploy website
 
 on:
   pull_request:
@@ -17,26 +17,19 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.4.3
-      - run: bun install --frozen-lockfile
-      - run: bun run check
-      - run: bun run build
+      - uses: actions/checkout@v7
+      - run: ./check.sh
 
   deploy:
     if: github.event_name != 'pull_request'
     needs: check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
+      - uses: actions/checkout@v7
+      - uses: cloudflare/wrangler-action@v4
         with:
-          bun-version: 1.4.3
-      - run: bun install --frozen-lockfile
-      - run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
-      - uses: alchemy-run/alchemy@v2.0.0-beta.81
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          wranglerVersion: "4.151.2"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Check the live site
+        run: ./check.sh https://opul.procka.org

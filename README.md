@@ -3,23 +3,31 @@
 The public website for [Opul](https://github.com/slovakian/opul), served at
 [opul.procka.org](https://opul.procka.org).
 
-This is a standalone Vite Plus and TanStack Start project. Its routes are
-prerendered during the build, and Alchemy deploys the result to Cloudflare.
-There is no account system, licensing service, payments integration, database,
-or API backend.
+The site is plain HTML and CSS in `public/`. There is no build step, framework,
+or package manager. Cloudflare Workers serves the folder as static assets.
 
 ## Development
 
-Install [Bun](https://bun.sh), then run:
+Serve the folder and open http://localhost:8080:
 
 ```sh
-bun install
-bun run check
-bun run dev
+python3 -m http.server -d public 8080
+./check.sh
 ```
 
-Production deployments run through Alchemy from GitHub Actions. The repository
-needs `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` Actions secrets.
+`check.sh` verifies local links and that the download link resolves. Pass a URL
+to check a deployed site too: `./check.sh https://opul.procka.org`.
+
+## Deployment
+
+Every push to `main` deploys with Wrangler (`wrangler.jsonc`) and then checks
+the live site. The repository needs `CLOUDFLARE_ACCOUNT_ID` and
+`CLOUDFLARE_API_TOKEN` Actions secrets.
+
+The site never changes for an app release. The download button points at
+`https://github.com/slovakian/opul/releases/latest/download/Opul.dmg`, which
+GitHub always resolves to the newest release.
 
 The site source is MIT-licensed. The Opul name, logo, and visual assets are
-reserved; see [TRADEMARKS.md](TRADEMARKS.md).
+reserved; see [TRADEMARKS.md](TRADEMARKS.md). Inter is licensed under the SIL
+Open Font License (`public/fonts/LICENSE-Inter.txt`).
