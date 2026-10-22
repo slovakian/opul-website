@@ -154,22 +154,10 @@ h1 {
   background: #ece8e3;
   box-shadow: 0 38px 90px rgba(46, 36, 80, 0.15);
 }
-.glass {
-  position: absolute;
-  width: 125%;
-  height: 125%;
-  object-fit: cover;
-  animation: drift 14s ease-in-out infinite alternate;
-}
 .mark {
   position: relative;
   width: 34%;
   filter: drop-shadow(0 18px 24px rgba(38, 25, 78, 0.25));
-}
-@keyframes drift {
-  to {
-    transform: scale(1.08) rotate(3deg);
-  }
 }
 .features {
   border-top: 1px solid var(--line);
@@ -362,9 +350,6 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .glass {
-    animation: none;
   }
   .button {
     transition: none;
