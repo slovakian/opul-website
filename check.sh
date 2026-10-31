@@ -8,7 +8,7 @@ status=0
 
 while IFS= read -r page; do
   while IFS= read -r path; do
-    target="public${path%%#*}"
+    target="public${path%%[?#]*}"
     [[ "$target" == */ ]] && target="${target}index.html"
     [[ -e "$target" ]] || { echo "$page links to missing $path"; status=1; }
   done < <(grep -o -E '(href|src)="/[^"]*"' "$page" | sed -E 's/^(href|src)="//; s/"$//')

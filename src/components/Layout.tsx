@@ -1,6 +1,7 @@
 import type { Child } from "hono/jsx";
 import { html } from "hono/html";
 import { SITE_URL } from "../constants";
+import { STYLESHEET_URL } from "../assets.generated";
 
 export interface LayoutProps {
   title: string;
@@ -46,6 +47,9 @@ export function Layout({
         <head>
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="color-scheme" content="light" />
+          {/* Paint the page colour before styles.css arrives, so navigations never flash white. */}
+          <style>{"html{background:#f7f4ef}"}</style>
           {httpEquivRefresh && (
             <meta http-equiv="refresh" content={httpEquivRefresh} />
           )}
@@ -69,7 +73,7 @@ export function Layout({
               crossorigin=""
             />
           )}
-          <link rel="stylesheet" href="/styles.css" />
+          <link rel="stylesheet" href={STYLESHEET_URL} />
           <link rel="icon" href="/favicon.ico" />
           {appleTouchIcon && <link rel="apple-touch-icon" href="/apple-touch-icon.png" />}
           {manifest && <link rel="manifest" href="/manifest.webmanifest" />}
