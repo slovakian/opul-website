@@ -2,3 +2,4 @@ node_modules/
 .alchemy/
 .DS_Store
 src/releases.generated.*
+dist/

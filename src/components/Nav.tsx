@@ -1,32 +1,31 @@
+import { Show } from "solid-js";
 import { REPO_URL, SPONSOR_URL } from "../constants";
+import { shell } from "../ui";
+import { Brand } from "./Brand";
 
-interface NavProps {
-  showLinks?: boolean;
-}
+const navLink = "text-[14px] text-muted no-underline hover:text-ink";
 
-export function Nav({ showLinks = true }: NavProps) {
-  if (!showLinks) {
-    return (
-      <nav class="nav shell">
-        <a class="brand" href="/">
-          <img src="/mark.png" width="34" height="34" alt="" />
-          <span>Opul</span>
-        </a>
-      </nav>
-    );
-  }
-
+export function Nav(props: { showLinks?: boolean }) {
+  const showLinks = () => props.showLinks ?? true;
   return (
-    <nav class="nav shell" aria-label="Main navigation">
-      <a class="brand" href="/">
-        <img src="/mark.png" width="34" height="34" alt="" />
-        <span>Opul</span>
-      </a>
-      <div class="nav-links">
-        <a href="/releases/">Releases</a>
-        <a href={REPO_URL}>Source</a>
-        <a href={SPONSOR_URL}>Sponsor</a>
-      </div>
+    <nav
+      class={`${shell} flex h-[78px] items-center justify-between`}
+      aria-label={showLinks() ? "Main navigation" : undefined}
+    >
+      <Brand size={34} />
+      <Show when={showLinks()}>
+        <div class="flex gap-[26px] narrow:gap-[14px]">
+          <a class={navLink} href="/releases/">
+            Releases
+          </a>
+          <a class={navLink} href={REPO_URL}>
+            Source
+          </a>
+          <a class={navLink} href={SPONSOR_URL}>
+            Sponsor
+          </a>
+        </div>
+      </Show>
     </nav>
   );
 }

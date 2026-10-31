@@ -4,21 +4,28 @@
   "type": "module",
   "scripts": {
     "test": "tsx --test scripts/releases.test.ts",
-    "build": "tsx scripts/build.ts",
-    "deploy": "pnpm build && alchemy deploy",
+    "releases": "tsx scripts/fetch-releases.ts",
+    "build": "pnpm releases && vite build",
+    "deploy": "pnpm releases && alchemy deploy",
     "destroy": "alchemy destroy",
-    "dev": "alchemy dev"
+    "dev": "alchemy dev",
+    "dev:vite": "vite"
   },
   "packageManager": "pnpm@12.14.0",
   "devDependencies": {
     "@effect/platform-node": "4.0.5",
+    "@solidjs/vite-plugin": "3.0.0-next.35",
+    "@tailwindcss/vite": "4.3.3",
     "@types/node": "^24.19.2",
     "alchemy": "2.0.0-beta.83",
     "effect": "4.0.5",
+    "tailwindcss": "4.3.3",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite": "8.3.5"
   },
   "dependencies": {
-    "hono": "^4.13.14"
+    "@solidjs/web": "2.0.0-rc.20",
+    "solid-js": "2.0.0-rc.20"
   }
 }
