@@ -10,6 +10,7 @@ export function Footer() {
       <p>Made by Jason Procka for macOS 🌈</p>
       <div>
         <a href="/privacy/">Privacy</a>
+        <a href="/releases/">Releases</a>
         <a href={REPO_URL}>GitHub</a>
       </div>
     </footer>

@@ -17,6 +17,9 @@ Run the site locally with Alchemy's Workers emulator:
 pnpm install
 pnpm build
 pnpm dev
+# In another terminal:
+pnpm test
+pnpm exec tsc --noEmit
 ./check.sh
 ```
 
@@ -31,9 +34,15 @@ checks the live site. Every pull request deploys its own `pr-<number>` stage on
 request destroys that stage. The repository needs `CLOUDFLARE_ACCOUNT_ID` and
 `CLOUDFLARE_API_TOKEN` Actions secrets.
 
-The site never changes for an app release. The download button points at
-`https://github.com/slovakian/opul/releases/latest/download/Opul.dmg`, which
-GitHub always resolves to the newest release.
+Every build fetches current stable and nightly releases from `slovakian/opul`.
+The download page offers available Apple silicon and Intel x86_64 installers;
+`/releases/` includes release history and notes. The site uses Tauri and Rust
+terminology to match the application.
+
+Release notifications trigger a production rebuild via `repository_dispatch`.
+See [release deployment setup](docs/release-deploys.md) for the companion app
+workflow, the required `OPUL_WEBSITE_DISPATCH_TOKEN` secret in `slovakian/opul`,
+and recovery instructions. You can also redeploy from the website's Actions UI.
 
 The site source is MIT-licensed. The Opul name, logo, and visual assets are
 reserved; see [TRADEMARKS.md](TRADEMARKS.md). Inter is licensed under the SIL
