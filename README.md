@@ -3,9 +3,11 @@
 The public website for [Opul](https://github.com/slovakian/opul), served at
 [opul.procka.org](https://opul.procka.org).
 
-The site is plain HTML and CSS in `public/`. There is no build step or
-framework. [Alchemy](https://alchemy.run) (`alchemy.run.ts`) deploys the folder
-to Cloudflare Workers as static assets.
+The site is built with [Hono](https://hono.dev) and JSX in `src/`. Static
+site generation (`pnpm build`) pre-renders the pages into `public/` using
+Hono's SSG helper so Cloudflare caches them at the edge for blazingly fast loads.
+[Alchemy](https://alchemy.run) (`alchemy.run.ts`) deploys the Hono web worker and
+static assets to Cloudflare Workers.
 
 ## Development
 
@@ -13,6 +15,7 @@ Run the site locally with Alchemy's Workers emulator:
 
 ```sh
 pnpm install
+pnpm build
 pnpm dev
 ./check.sh
 ```

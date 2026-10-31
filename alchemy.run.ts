@@ -22,6 +22,7 @@ export default Alchemy.Stack(
     const site = yield* Cloudflare.Worker("Website", {
       name: production ? "opul-website" : undefined,
       compatibility: { date: "2026-10-09" },
+      main: "./src/index.tsx",
       assets: {
         directory: "./public",
         htmlHandling: "auto-trailing-slash",

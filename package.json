@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "deploy": "alchemy deploy",
+    "build": "tsx scripts/build.ts",
+    "deploy": "pnpm build && alchemy deploy",
     "destroy": "alchemy destroy",
     "dev": "alchemy dev"
   },
@@ -13,6 +14,10 @@
     "@types/node": "^24.19.2",
     "alchemy": "2.0.0-beta.83",
     "effect": "4.0.5",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "hono": "^4.13.14"
   }
 }
