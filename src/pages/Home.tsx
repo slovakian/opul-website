@@ -41,9 +41,6 @@ export function HomePage() {
               <a class="button primary" href="/download/">
                 Download for macOS
               </a>
-              <a class="button secondary" href="/download/#nightly">
-                Try nightly
-              </a>
               <a class="button secondary" href={REPO_URL}>
                 View on GitHub
               </a>
@@ -52,7 +49,12 @@ export function HomePage() {
               {stable?.name ?? "Stable downloads"} · macOS 14 or later · Apple
               silicon and Intel · <a href="/releases/">Release notes</a>
             </p>
-            {nightly && <p class="release-note">Nightly: {nightly.name}</p>}
+            {nightly && (
+              <a class="nightly-link" href="/download/#nightly">
+                <span aria-hidden="true">🌚</span> Want the latest changes? Try
+                Nightly <span aria-hidden="true">→</span>
+              </a>
+            )}
           </div>
           <div class="art" aria-hidden="true">
             <img class="mark" src="/mark.png" alt="" />
