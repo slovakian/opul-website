@@ -3,11 +3,12 @@ import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import {
   REPO_URL,
-  LATEST_RELEASE_URL,
   ISSUES_URL,
   CONTRIBUTING_URL,
   SPONSOR_URL,
 } from "../constants";
+
+import { stable, nightly } from "../releases";
 
 export function HomePage() {
   return (
@@ -32,21 +33,26 @@ export function HomePage() {
               for macOS.
             </h1>
             <p class="lede">
-              Opul is a native download manager for macOS. Keep video, direct, and torrent downloads in
-              focused Workspaces that feel at home on your Mac.
+              Opul is a native download manager for macOS. Keep video, direct,
+              and torrent downloads in focused Workspaces that feel at home on
+              your Mac.
             </p>
             <div class="actions">
               <a class="button primary" href="/download/">
                 Download for macOS
+              </a>
+              <a class="button secondary" href="/download/#nightly">
+                Try nightly
               </a>
               <a class="button secondary" href={REPO_URL}>
                 View on GitHub
               </a>
             </div>
             <p class="release-note">
-              Latest version · macOS 14 or later · Apple silicon and Intel ·{" "}
-              <a href={LATEST_RELEASE_URL}>Release notes</a>
+              {stable?.name ?? "Stable downloads"} · macOS 14 or later · Apple
+              silicon and Intel · <a href="/releases/">Release notes</a>
             </p>
+            {nightly && <p class="release-note">Nightly: {nightly.name}</p>}
           </div>
           <div class="art" aria-hidden="true">
             <img class="mark" src="/mark.png" alt="" />
@@ -62,23 +68,24 @@ export function HomePage() {
               <span>01</span>
               <h3>Workspaces</h3>
               <p>
-                Separate projects, media, and everyday downloads with their own folders, icons, and
-                views.
+                Separate projects, media, and everyday downloads with their own
+                folders, icons, and views.
               </p>
             </article>
             <article>
               <span>02</span>
               <h3>More than links</h3>
               <p>
-                Download direct files, video pages, playlists, magnet links, and torrent files from one
-                app.
+                Download direct files, video pages, playlists, magnet links, and
+                torrent files from one app.
               </p>
             </article>
             <article>
               <span>03</span>
               <h3>Built for Mac</h3>
               <p>
-                Built for performance and stability with SwiftUI over a Rust core.
+                Built for performance and stability with Tauri and a Rust
+                download core.
               </p>
             </article>
           </div>
@@ -90,8 +97,9 @@ export function HomePage() {
           </div>
           <div>
             <p>
-              Opul is MIT-licensed. Read the code, report a bug, improve it, or build something new from
-              it. There is no product license and no account to create.
+              Opul is MIT-licensed. Read the code, report a bug, improve it, or
+              build something new from it. There is no product license and no
+              account to create.
             </p>
             <div class="text-links">
               <a href={ISSUES_URL}>Report an issue ↗</a>
@@ -104,9 +112,10 @@ export function HomePage() {
         <section class="install shell" aria-labelledby="install-title">
           <h2 id="install-title">One extra step, once.</h2>
           <p>
-            Opul isn&apos;t notarized by Apple yet, so the first time you open it, macOS asks you to
-            approve it in System Settings. The download page walks you through it. After that, Opul
-            opens normally and installs its own updates.
+            If macOS can&apos;t verify your download the first time you open it,
+            you can approve it in System Settings. The download page walks you
+            through it. After that, Opul opens normally. Choose stable or
+            nightly builds for Apple silicon and Intel on the download page.
           </p>
         </section>
       </main>

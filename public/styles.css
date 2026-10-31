@@ -348,3 +348,27 @@ kbd {
     transition: none;
   }
 }
+
+.release-entry {
+  border-top: 1px solid var(--line);
+  padding-block: 36px;
+  margin-top: 36px;
+}
+.release-entry h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  overflow-wrap: anywhere;
+}
+.release-entry h3 { overflow-wrap: anywhere; }
+.release-notes { margin-block: 24px; }
+.release-notes summary { cursor: pointer; font-weight: 600; }
+.release-notes pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  line-height: 1.65;
+  color: var(--muted);
+}
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (max-width: 400px) {
+  .nav-links, .footer div:last-child { gap: 14px; }
+}

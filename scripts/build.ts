@@ -1,8 +1,16 @@
 import * as fs from "node:fs/promises";
 import { toSSG } from "hono/ssg";
-import { app } from "../src/index";
+import { fetchReleases } from "./releases";
 
 async function build() {
+  const releases = await fetchReleases();
+  await fs.writeFile(
+    "src/releases.generated.ts",
+    'import type { Release } from "../scripts/releases";\nexport default ' +
+      JSON.stringify(releases, null, 2) +
+      " satisfies Release[];\n",
+  );
+  const { app } = await import("../src/index");
   console.log("Generating static site with Hono SSG...");
   const result = await toSSG(app, fs, {
     dir: "./public",

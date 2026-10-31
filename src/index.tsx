@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { appendTrailingSlash } from "hono/trailing-slash";
 import { HomePage } from "./pages/Home";
 import { DownloadPage } from "./pages/Download";
+import { ReleasesPage } from "./pages/Releases";
 import { PrivacyPage } from "./pages/Privacy";
 import { NotFoundPage } from "./pages/NotFound";
 
@@ -19,6 +20,7 @@ app.use("*", async (c, next) => {
 
 app.get("/", (c) => c.html(<HomePage />));
 app.get("/download/", (c) => c.html(<DownloadPage />));
+app.get("/releases/", (c) => c.html(<ReleasesPage />));
 app.get("/privacy/", (c) => c.html(<PrivacyPage />));
 app.get("/404.html", (c) => c.html(<NotFoundPage />));
 

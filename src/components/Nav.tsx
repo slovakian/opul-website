@@ -23,6 +23,7 @@ export function Nav({ showLinks = true }: NavProps) {
         <span>Opul</span>
       </a>
       <div class="nav-links">
+        <a href="/releases/">Releases</a>
         <a href={REPO_URL}>Source</a>
         <a href={SPONSOR_URL}>Sponsor</a>
       </div>
