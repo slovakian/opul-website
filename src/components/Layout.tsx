@@ -13,11 +13,7 @@ export interface LayoutProps {
   ogType?: string;
   twitterCard?: string;
   robots?: string;
-  themeColor?: string;
-  httpEquivRefresh?: string;
   manifest?: boolean;
-  appleTouchIcon?: boolean;
-  preloadFont?: boolean;
   children: Child;
 }
 
@@ -31,11 +27,7 @@ export function Layout({
   ogType,
   twitterCard,
   robots,
-  themeColor = "#f7f4ef",
-  httpEquivRefresh,
   manifest = false,
-  appleTouchIcon = true,
-  preloadFont = true,
   children,
 }: LayoutProps) {
   const canonicalUrl = canonicalPath ? `${SITE_URL}${canonicalPath}` : undefined;
@@ -50,13 +42,10 @@ export function Layout({
           <meta name="color-scheme" content="light" />
           {/* Paint the page colour before styles.css arrives, so navigations never flash white. */}
           <style>{"html{background:#f7f4ef}"}</style>
-          {httpEquivRefresh && (
-            <meta http-equiv="refresh" content={httpEquivRefresh} />
-          )}
           <title>{title}</title>
           {description && <meta name="description" content={description} />}
           {robots && <meta name="robots" content={robots} />}
-          {themeColor && <meta name="theme-color" content={themeColor} />}
+          <meta name="theme-color" content="#f7f4ef" />
           {ogTitle && <meta property="og:title" content={ogTitle} />}
           {ogDescription && <meta property="og:description" content={ogDescription} />}
           {ogImage && <meta property="og:image" content={ogImage} />}
@@ -64,19 +53,21 @@ export function Layout({
           {canonicalUrl && ogTitle && <meta property="og:url" content={canonicalUrl} />}
           {twitterCard && <meta name="twitter:card" content={twitterCard} />}
           {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-          {preloadFont && (
-            <link
-              rel="preload"
-              href="/fonts/inter-latin-wght-normal.woff2"
-              as="font"
-              type="font/woff2"
-              crossorigin=""
-            />
-          )}
+          <link
+            rel="preload"
+            href="/fonts/inter-latin-wght-normal.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin=""
+          />
           <link rel="stylesheet" href={STYLESHEET_URL} />
           <link rel="icon" href="/favicon.ico" />
-          {appleTouchIcon && <link rel="apple-touch-icon" href="/apple-touch-icon.png" />}
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           {manifest && <link rel="manifest" href="/manifest.webmanifest" />}
+          {/* Chrome prerenders a page when a link to it is hovered, so the click shows it instantly. */}
+          <script type="speculationrules">
+            {html`{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}`}
+          </script>
         </head>
         <body>{children}</body>
       </html>

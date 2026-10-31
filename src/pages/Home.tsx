@@ -57,7 +57,7 @@ export function HomePage() {
             )}
           </div>
           <div class="art" aria-hidden="true">
-            <img class="mark" src="/mark.png" alt="" />
+            <img class="mark" src="/mark.png" width="384" height="384" alt="" />
           </div>
         </section>
 

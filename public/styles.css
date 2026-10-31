@@ -18,17 +18,6 @@
   --accent: #4f3cc9;
 }
 
-@view-transition {
-  navigation: auto;
-}
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*),
-  ::view-transition-old(*),
-  ::view-transition-new(*) {
-    animation: none;
-  }
-}
-
 * {
   box-sizing: border-box;
 }

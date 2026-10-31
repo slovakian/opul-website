@@ -1,5 +1,6 @@
 import { Layout } from "../components/Layout";
 import { Nav } from "../components/Nav";
+import { Footer } from "../components/Footer";
 import { REPO_URL } from "../constants";
 
 export function PrivacyPage() {
@@ -9,7 +10,7 @@ export function PrivacyPage() {
       description="Opul privacy information."
       canonicalPath="/privacy/"
     >
-      <Nav showLinks={false} />
+      <Nav />
       <main class="document shell">
         <h1>No account. No analytics.</h1>
         <p>
@@ -33,6 +34,7 @@ export function PrivacyPage() {
           <a href={REPO_URL}>Inspect the source ↗</a>
         </p>
       </main>
+      <Footer />
     </Layout>
   );
 }
