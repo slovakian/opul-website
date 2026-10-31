@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { appendTrailingSlash } from "hono/trailing-slash";
 import { HomePage } from "./pages/Home";
 import { DownloadPage } from "./pages/Download";
 import { ReleasesPage } from "./pages/Releases";
@@ -7,8 +6,6 @@ import { PrivacyPage } from "./pages/Privacy";
 import { NotFoundPage } from "./pages/NotFound";
 
 export const app = new Hono();
-
-app.use(appendTrailingSlash());
 
 // Cache headers for edge caching
 app.use("*", async (c, next) => {
