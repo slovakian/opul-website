@@ -3,12 +3,12 @@
     "target": "esnext",
     "module": "preserve",
     "moduleResolution": "bundler",
-    "types": ["node"],
+    "types": ["node", "vite/client"],
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsx": "preserve",
+    "jsxImportSource": "@solidjs/web"
   },
-  "include": ["alchemy.run.ts", "src/**/*", "scripts/**/*"]
+  "include": ["alchemy.run.ts", "vite.config.ts", "src/**/*", "scripts/**/*"]
 }

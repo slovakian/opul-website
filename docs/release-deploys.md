@@ -1,10 +1,12 @@
 # Release-driven builds
 
 The website fetches every page of the public `slovakian/opul` releases API during
-`pnpm build`. It generates `src/releases.generated.ts`, then renders the homepage,
-downloads, and release history with Hono SSG. No visitor-side API requests or tokens
+`pnpm build` (`pnpm releases`). It generates `src/releases.generated.ts`, which
+the Solid pages render into the homepage, downloads, and release history. No visitor-side API requests or tokens
 are needed. An API error fails the build, leaving the previous deployment intact.
-Run `pnpm build` before type checking or running the local Worker.
+Run `pnpm build` before type checking or running the local Worker. Alchemy hashes
+the snapshot (see `memo` in `alchemy.run.ts`) even though it is gitignored, so a new
+release always rebuilds and redeploys the site.
 
 Stable releases use published, non-prerelease `vX.Y.Z` tags. The `nightly` tag is
 the rolling preview. Other prereleases, such as media tools, are excluded.
@@ -53,7 +55,7 @@ pnpm exec tsc --noEmit
 ./check.sh https://opul.procka.org
 ```
 
-The live checks compare the generated HTML on both release pages and verify all
+The live checks compare the download links on both release pages with this build and verify all
 current download URLs. Rolling nightly URLs continue to point to the moving
 `nightly` tag; the site rebuild refreshes its name, date, and notes.
 

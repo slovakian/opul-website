@@ -3,11 +3,17 @@
 The public website for [Opul](https://github.com/slovakian/opul), served at
 [opul.procka.org](https://opul.procka.org).
 
-The site is built with [Hono](https://hono.dev) and JSX in `src/`. Static
-site generation (`pnpm build`) pre-renders the pages into `public/` using
-Hono's SSG helper so Cloudflare caches them at the edge for blazingly fast loads.
-[Alchemy](https://alchemy.run) (`alchemy.run.ts`) deploys the Hono web worker and
-static assets to Cloudflare Workers.
+The site is a [Solid 2.0](https://solidjs.com) app in `src/`, styled with
+[Tailwind CSS](https://tailwindcss.com) v4 and built with [Vite](https://vite.dev).
+It uses the Solid Vite plugin's start mode with SSR (`vite.config.ts`). There is no
+SolidStart and no static generation: `src/App.tsx` (the routes, using
+`@solidjs/router`) renders inside `src/Document.tsx` on every request. The page then
+hydrates, so later navigation happens client-side. `src/middleware.ts` sets the
+edge cache headers and redirects page URLs to their trailing-slash form.
+
+[Alchemy](https://alchemy.run) (`alchemy.run.ts`) deploys the app to Cloudflare
+Workers. The client build becomes static assets, and Solid's server handler runs
+as the Worker.
 
 ## Development
 
@@ -15,15 +21,18 @@ Run the site locally with Alchemy's Workers emulator:
 
 ```sh
 pnpm install
-pnpm build
-pnpm dev
+pnpm build      # fetch releases, then vite build
+pnpm dev        # Alchemy's Workers emulator
+pnpm dev:vite   # or plain Vite, with server rendering in Node
+pnpm preview    # serve the production build locally
 # In another terminal:
 pnpm test
 pnpm exec tsc --noEmit
 ./check.sh
 ```
 
-`check.sh` verifies local links and that the download link resolves. Pass a URL
+`pnpm releases` refreshes the release snapshot on its own. `check.sh` serves the build with `vite preview` and verifies local links, the 404
+status, and that the download links resolve. Pass a URL
 to check a deployed site too: `./check.sh https://opul.procka.org`.
 
 ## Deployment
