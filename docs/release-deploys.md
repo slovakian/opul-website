@@ -2,7 +2,7 @@
 
 The website fetches every page of the public `slovakian/opul` releases API during
 `pnpm build` (`pnpm releases`). It generates `src/releases.generated.ts`, which
-the Solid pages render into the prerendered homepage, downloads, and release history. No visitor-side API requests or tokens
+the Solid pages render into the homepage, downloads, and release history. No visitor-side API requests or tokens
 are needed. An API error fails the build, leaving the previous deployment intact.
 Run `pnpm build` before type checking or running the local Worker. Alchemy hashes
 the snapshot (see `memo` in `alchemy.run.ts`) even though it is gitignored, so a new
@@ -55,7 +55,7 @@ pnpm exec tsc --noEmit
 ./check.sh https://opul.procka.org
 ```
 
-The live checks compare the generated HTML on both release pages and verify all
+The live checks compare the download links on both release pages with this build and verify all
 current download URLs. Rolling nightly URLs continue to point to the moving
 `nightly` tag; the site rebuild refreshes its name, date, and notes.
 

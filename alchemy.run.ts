@@ -20,19 +20,23 @@ export default Alchemy.Stack(
     // opul.procka.org, so the custom domain never moves. Other stages get
     // their own Worker on workers.dev.
     //
-    // `vite build` (see vite.config.ts) prerenders every page into the static
-    // assets and bundles src/worker.ts, which server-renders anything else.
+    // Solid's start mode (see vite.config.ts) builds the client assets and
+    // the `ssr` environment, which runs as the Worker and server-renders
+    // every request that isn't a static file.
     const site = yield* Cloudflare.Website.Vite("Website", {
       name: production ? "opul-website" : undefined,
       compatibility: { date: "2026-10-09" },
-      assets: {
-        htmlHandling: "auto-trailing-slash",
-        notFoundHandling: "404-page",
-      },
       // The release snapshot is gitignored, so hash it explicitly: a release
       // must trigger a rebuild even when no tracked file changed.
       memo: {
-        include: ["src/**", "public/**", "scripts/**", "vite.config.ts", "package.json", "tsconfig.json"],
+        include: [
+          "src/**",
+          "public/**",
+          "scripts/**",
+          "vite.config.ts",
+          "package.json",
+          "tsconfig.json",
+        ],
         exclude: [],
         lockfile: true,
       },

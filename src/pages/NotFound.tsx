@@ -1,16 +1,19 @@
-import { Document } from "../components/Document";
+import { httpStatus } from "@solidjs/web";
+import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { documentCopy, documentMain, documentTitle, underlinedLink } from "../ui";
 
 export function NotFoundPage() {
+  httpStatus(404);
   return (
-    <Document
-      title="Not found — Opul"
-      robots="noindex"
-      themeColor=""
-      preloadFont={false}
-      appleTouchIcon={false}
-    >
+    <>
+      <PageHead
+        title="Not found — Opul"
+        robots="noindex"
+        themeColor={null}
+        preloadFont={false}
+        appleTouchIcon={false}
+      />
       <Nav showLinks={false} />
       <main class={documentMain}>
         <h1 class={documentTitle}>This page doesn&apos;t exist.</h1>
@@ -25,6 +28,6 @@ export function NotFoundPage() {
           .
         </p>
       </main>
-    </Document>
+    </>
   );
 }

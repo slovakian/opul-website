@@ -1,5 +1,5 @@
 import { Show } from "solid-js";
-import { Document } from "../components/Document";
+import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { REPO_URL, ISSUES_URL, CONTRIBUTING_URL, SPONSOR_URL } from "../constants";
@@ -34,17 +34,18 @@ const features = [
 
 export function HomePage() {
   return (
-    <Document
-      title="Opul — a native download manager for macOS"
-      description="Opul is a free, open-source download manager built for macOS."
-      canonicalPath="/"
-      ogTitle="Opul"
-      ogDescription="Opul is a free, open-source download manager built for macOS."
-      ogImage="https://opul.procka.org/og.jpg"
-      ogType="website"
-      twitterCard="summary_large_image"
-      manifest
-    >
+    <>
+      <PageHead
+        title="Opul — a native download manager for macOS"
+        description="Opul is a free, open-source download manager built for macOS."
+        canonicalPath="/"
+        ogTitle="Opul"
+        ogDescription="Opul is a free, open-source download manager built for macOS."
+        ogImage="https://opul.procka.org/og.jpg"
+        ogType="website"
+        twitterCard="summary_large_image"
+        manifest
+      />
       <Nav />
       <main>
         <section
@@ -57,8 +58,8 @@ export function HomePage() {
               for macOS.
             </h1>
             <p class={lede}>
-              Opul is a native download manager for macOS. Keep video, direct, and torrent
-              downloads in focused Workspaces that feel at home on your Mac.
+              Opul is a native download manager for macOS. Keep video, direct, and torrent downloads
+              in focused Workspaces that feel at home on your Mac.
             </p>
             <div class={actions}>
               <a class={primaryButton} href="/download/">
@@ -144,6 +145,6 @@ export function HomePage() {
         </section>
       </main>
       <Footer />
-    </Document>
+    </>
   );
 }

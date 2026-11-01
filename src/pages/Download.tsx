@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { Document } from "../components/Document";
+import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { ReleaseDownloads } from "../components/ReleaseDownloads";
@@ -31,11 +31,12 @@ const step =
 
 export function DownloadPage() {
   return (
-    <Document
-      title="Download Opul"
-      description="Download the latest version of Opul for macOS and open it for the first time."
-      canonicalPath="/download/"
-    >
+    <>
+      <PageHead
+        title="Download Opul"
+        description="Download the latest version of Opul for macOS and open it for the first time."
+        canonicalPath="/download/"
+      />
       <Nav />
       <main>
         <section class={`${shell} pt-[90px] pb-10`}>
@@ -72,7 +73,11 @@ export function DownloadPage() {
           </p>
         </section>
 
-        <section class={`${shell} ${panel} mt-10 mb-[110px]`} id="install" aria-labelledby="install-title">
+        <section
+          class={`${shell} ${panel} mt-10 mb-[110px]`}
+          id="install"
+          aria-labelledby="install-title"
+        >
           <h2 id="install-title" class={panelHeading}>
             Three steps, once.
           </h2>
@@ -107,6 +112,6 @@ export function DownloadPage() {
         </section>
       </main>
       <Footer />
-    </Document>
+    </>
   );
 }

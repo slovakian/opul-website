@@ -1,5 +1,5 @@
 import { For, Show } from "solid-js";
-import { Document } from "../components/Document";
+import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { ReleaseDownloads } from "../components/ReleaseDownloads";
@@ -9,11 +9,12 @@ import { lede, pageTitle, releaseEntry, releaseNote, releaseTitle, shell } from 
 
 export function ReleasesPage() {
   return (
-    <Document
-      title="Opul releases"
-      description="Stable and nightly Opul releases, release notes, and macOS downloads."
-      canonicalPath="/releases/"
-    >
+    <>
+      <PageHead
+        title="Opul releases"
+        description="Stable and nightly Opul releases, release notes, and macOS downloads."
+        canonicalPath="/releases/"
+      />
       <Nav />
       <main class={`${shell} pt-[90px] pb-10`}>
         <h1 class={pageTitle}>Releases.</h1>
@@ -55,6 +56,6 @@ export function ReleasesPage() {
         </For>
       </main>
       <Footer />
-    </Document>
+    </>
   );
 }

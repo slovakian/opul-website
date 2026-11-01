@@ -1,11 +1,16 @@
-import { Document } from "../components/Document";
+import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { REPO_URL } from "../constants";
 import { documentCopy, documentMain, documentTitle, underlinedLink } from "../ui";
 
 export function PrivacyPage() {
   return (
-    <Document title="Privacy — Opul" description="Opul privacy information." canonicalPath="/privacy/">
+    <>
+      <PageHead
+        title="Privacy — Opul"
+        description="Opul privacy information."
+        canonicalPath="/privacy/"
+      />
       <Nav showLinks={false} />
       <main class={documentMain}>
         <h1 class={documentTitle}>No account. No analytics.</h1>
@@ -33,6 +38,6 @@ export function PrivacyPage() {
           </a>
         </p>
       </main>
-    </Document>
+    </>
   );
 }

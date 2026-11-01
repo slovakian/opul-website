@@ -5,14 +5,15 @@ The public website for [Opul](https://github.com/slovakian/opul), served at
 
 The site is a [Solid 2.0](https://solidjs.com) app in `src/`, styled with
 [Tailwind CSS](https://tailwindcss.com) v4 and built with [Vite](https://vite.dev).
-Pages are server-rendered without hydration, so no JavaScript ships to the browser.
+It uses the Solid Vite plugin's start mode with SSR (`vite.config.ts`). There is no
+SolidStart and no static generation: `src/App.tsx` (the routes, using
+`@solidjs/router`) renders inside `src/Document.tsx` on every request. The page then
+hydrates, so later navigation happens client-side. `src/middleware.ts` sets the
+edge cache headers and redirects page URLs to their trailing-slash form.
 
-`vite build` (see `vite.config.ts`) builds the stylesheet, prerenders every page in
-`src/routes.tsx` to static HTML in `dist/client`, and bundles `src/worker.ts`.
-Cloudflare serves the prerendered pages as cached static assets. The Worker
-server-renders any other path, which returns the not-found page with a 404.
-[Alchemy](https://alchemy.run) (`alchemy.run.ts`) runs that build and deploys the
-Worker and its assets to Cloudflare Workers.
+[Alchemy](https://alchemy.run) (`alchemy.run.ts`) deploys the app to Cloudflare
+Workers. The client build becomes static assets, and Solid's server handler runs
+as the Worker.
 
 ## Development
 
@@ -23,13 +24,15 @@ pnpm install
 pnpm build      # fetch releases, then vite build
 pnpm dev        # Alchemy's Workers emulator
 pnpm dev:vite   # or plain Vite, with server rendering in Node
+pnpm preview    # serve the production build locally
 # In another terminal:
 pnpm test
 pnpm exec tsc --noEmit
 ./check.sh
 ```
 
-`pnpm releases` refreshes the release snapshot on its own. `check.sh` verifies local links and that the download link resolves. Pass a URL
+`pnpm releases` refreshes the release snapshot on its own. `check.sh` serves the build with `vite preview` and verifies local links, the 404
+status, and that the download links resolve. Pass a URL
 to check a deployed site too: `./check.sh https://opul.procka.org`.
 
 ## Deployment

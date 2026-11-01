@@ -9,12 +9,13 @@
     "deploy": "pnpm releases && alchemy deploy",
     "destroy": "alchemy destroy",
     "dev": "alchemy dev",
-    "dev:vite": "vite"
+    "dev:vite": "vite",
+    "preview": "vite preview"
   },
   "packageManager": "pnpm@12.14.0",
   "devDependencies": {
     "@effect/platform-node": "4.0.5",
-    "@solidjs/vite-plugin": "3.0.0-next.35",
+    "@solidjs/vite-plugin": "3.0.0-next.54",
     "@tailwindcss/vite": "4.3.3",
     "@types/node": "^24.19.2",
     "alchemy": "2.0.0-beta.83",
@@ -25,6 +26,7 @@
     "vite": "8.3.5"
   },
   "dependencies": {
+    "@solidjs/router": "2.0.0-next.43",
     "@solidjs/web": "2.0.0-rc.20",
     "solid-js": "2.0.0-rc.20"
   }
