@@ -32,13 +32,19 @@ done
 code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Accept: text/html' "$local_site/does-not-exist")
 [[ "$code" == 404 ]] || { echo "/does-not-exist returned $code, expected 404"; status=1; }
 
-# Check the actual generated asset URLs, including nightly and both architectures.
-downloads() { grep -o -E 'https://github.com/slovakian/opul/releases/download/[^" ]+' | sort -u; }
-fetch "$local_site/download/" | downloads >"$work/downloads.txt"
-[[ -s "$work/downloads.txt" ]] || { echo "No download links on /download/"; status=1; }
-while IFS= read -r url; do
-  curl -fsSLI --retry 3 "$url" -o /dev/null || { echo "Download link is broken: $url"; status=1; }
-done <"$work/downloads.txt"
+# Versioned release assets, plus homepage links that follow /releases/latest/download/<asset>.
+downloads() { grep -o -E 'https://github.com/slovakian/opul/releases/(latest/)?download/[^" ]+' | sort -u; }
+check_downloads() {
+  local page="$1"
+  local file="$work/downloads${page//\//-}.txt"
+  fetch "$local_site$page" | downloads >"$file"
+  [[ -s "$file" ]] || { echo "No download links on $page"; status=1; return; }
+  while IFS= read -r url; do
+    curl -fsSLI --retry 3 "$url" -o /dev/null || { echo "Download link is broken: $url"; status=1; }
+  done <"$file"
+}
+check_downloads /
+check_downloads /download/
 
 if [[ $# -gt 0 ]]; then
   site=${1%/}
@@ -50,7 +56,7 @@ if [[ $# -gt 0 ]]; then
     curl -fsS --retry 5 --retry-all-errors -o /dev/null "$site$path" || { echo "$site$path is not served"; status=1; }
   done
   # The deployed release pages must show the same releases as this build.
-  for page in /download/ /releases/; do
+  for page in / /download/ /releases/; do
     cmp -s <(fetch "$local_site$page" | downloads) <(fetch "$site$page" | downloads) ||
       { echo "$site$page is stale"; status=1; }
   done

@@ -2,20 +2,11 @@ import { Show } from "solid-js";
 import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
-import { REPO_URL, ISSUES_URL, CONTRIBUTING_URL, SPONSOR_URL } from "../constants";
-import { stable, nightly } from "../releases";
-import {
-  actions,
-  copy,
-  lede,
-  panel,
-  panelHeading,
-  primaryButton,
-  releaseNote,
-  secondaryButton,
-  shell,
-  underlinedLink,
-} from "../ui";
+import { HeroShot } from "../components/HeroShot";
+import { MacDownload } from "../components/MacDownload";
+import { ISSUES_URL, CONTRIBUTING_URL, SPONSOR_URL } from "../constants";
+import { nightly } from "../releases";
+import { copy, lede, panel, panelHeading, shell, underlinedLink } from "../ui";
 
 const features = [
   {
@@ -36,7 +27,7 @@ export function HomePage() {
   return (
     <>
       <PageHead
-        title="Opul — a native download manager for macOS"
+        title="Opul — a download manager for macOS"
         description="Opul is a free, open-source download manager built for macOS."
         canonicalPath="/"
         ogTitle="Opul"
@@ -58,21 +49,10 @@ export function HomePage() {
               for macOS.
             </h1>
             <p class={lede}>
-              Opul is a native download manager for macOS. Keep video, direct, and torrent downloads
-              in focused Workspaces that feel at home on your Mac.
+              Opul is a download manager for Mac. Keep video, direct, and torrent downloads in
+              focused Workspaces that feel at home on your Mac.
             </p>
-            <div class={actions}>
-              <a class={primaryButton} href="/download/">
-                Download for macOS
-              </a>
-              <a class={secondaryButton} href={REPO_URL}>
-                View on GitHub
-              </a>
-            </div>
-            <p class={releaseNote}>
-              {stable?.name ?? "Stable downloads"} · macOS 14 or later · Apple silicon and Intel ·{" "}
-              <a href="/releases/">Release notes</a>
-            </p>
+            <MacDownload />
             <Show when={nightly}>
               <a
                 class="mt-[18px] inline-flex items-center gap-1.5 rounded-full border border-line bg-frost py-1.5 pr-3.5 pl-2.5 text-[13px] font-[550] text-muted no-underline transition-[color,border-color] duration-[180ms] ease-[ease] hover:border-line-strong hover:text-ink"
@@ -83,13 +63,7 @@ export function HomePage() {
               </a>
             </Show>
           </div>
-          <div class="flex items-center justify-center mobile:hidden" aria-hidden="true">
-            <img
-              class="h-auto w-[min(280px,70%)] drop-shadow-[0_18px_24px_rgba(38,25,78,0.18)]"
-              src="/mark.png"
-              alt=""
-            />
-          </div>
+          <HeroShot />
         </section>
 
         <section class={`${shell} py-[104px]`} aria-labelledby="features-title">
@@ -138,9 +112,9 @@ export function HomePage() {
           </h2>
           <p class={`${copy} mb-0 max-w-[820px]`}>
             If macOS can&apos;t verify your download the first time you open it, you can approve it
-            in System Settings. The download page walks you through it. After that, Opul opens
-            normally. Choose stable or nightly builds for Apple silicon and Intel on the download
-            page.
+            in System Settings. The <a href="/download/#install">download page</a> walks you through
+            Open Anyway. After that, Opul opens normally. Stable and nightly builds are listed there
+            too.
           </p>
         </section>
       </main>

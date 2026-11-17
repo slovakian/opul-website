@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "tsx --test scripts/releases.test.ts",
+    "test": "tsx --test scripts/*.test.ts",
     "releases": "tsx scripts/fetch-releases.ts",
     "build": "pnpm releases && vite build",
     "deploy": "pnpm releases && alchemy deploy",
