@@ -2,17 +2,14 @@ import { Show } from "solid-js";
 import { PageHead } from "../components/PageHead";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
-import { REPO_URL, ISSUES_URL, CONTRIBUTING_URL, SPONSOR_URL } from "../constants";
-import { stable, nightly } from "../releases";
+import { MacDownloadCta } from "../components/MacDownloadCta";
+import { ISSUES_URL, CONTRIBUTING_URL, SPONSOR_URL } from "../constants";
+import { nightly } from "../releases";
 import {
-  actions,
   copy,
   lede,
   panel,
   panelHeading,
-  primaryButton,
-  releaseNote,
-  secondaryButton,
   shell,
   underlinedLink,
 } from "../ui";
@@ -31,6 +28,13 @@ const features = [
     body: "Built for performance and stability with Tauri and a Rust download core.",
   },
 ];
+
+const heroScreenshot = {
+  src: "/screenshots/opul-light.png",
+  width: 2360,
+  height: 1520,
+  alt: "Opul window in light appearance showing workspaces and a mix of torrent, video-page, and file downloads",
+};
 
 export function HomePage() {
   return (
@@ -58,21 +62,10 @@ export function HomePage() {
               for macOS.
             </h1>
             <p class={lede}>
-              Opul is a simple torrent client and downloader for Mac. Keep video, direct, and torrent downloads
-              in focused Workspaces that feel at home on your Mac.
+              Opul is a simple torrent client and downloader for Mac. Keep video, direct, and torrent
+              downloads in focused Workspaces that feel at home on your Mac.
             </p>
-            <div class={actions}>
-              <a class={primaryButton} href="/download/">
-                Download for macOS
-              </a>
-              <a class={secondaryButton} href={REPO_URL}>
-                View on GitHub
-              </a>
-            </div>
-            <p class={releaseNote}>
-              {stable?.name ?? "Stable downloads"} · macOS 14 or later · Apple silicon and Intel ·{" "}
-              <a href="/releases/">Release notes</a>
-            </p>
+            <MacDownloadCta />
             <Show when={nightly}>
               <a
                 class="mt-[18px] inline-flex items-center gap-1.5 rounded-full border border-line bg-frost py-1.5 pr-3.5 pl-2.5 text-[13px] font-[550] text-muted no-underline transition-[color,border-color] duration-[180ms] ease-[ease] hover:border-line-strong hover:text-ink"
@@ -83,11 +76,14 @@ export function HomePage() {
               </a>
             </Show>
           </div>
-          <div class="flex items-center justify-center mobile:hidden" aria-hidden="true">
+          <div class="flex items-center justify-center mobile:order-last">
             <img
-              class="h-auto w-[min(280px,70%)] drop-shadow-[0_18px_24px_rgba(38,25,78,0.18)]"
-              src="/mark.png"
-              alt=""
+              class="h-auto w-full max-w-[560px] rounded-[18px] shadow-[0_18px_40px_rgba(20,17,14,0.14)]"
+              src={heroScreenshot.src}
+              width={heroScreenshot.width}
+              height={heroScreenshot.height}
+              alt={heroScreenshot.alt}
+              decoding="async"
             />
           </div>
         </section>
