@@ -36,7 +36,7 @@ export function HomePage() {
   return (
     <>
       <PageHead
-        title="Opul — a native download manager for macOS"
+        title="Opul — a simple torrent client and downloader for Mac"
         description="Opul is a free, open-source download manager built for macOS."
         canonicalPath="/"
         ogTitle="Opul"
@@ -58,7 +58,7 @@ export function HomePage() {
               for macOS.
             </h1>
             <p class={lede}>
-              Opul is a native download manager for macOS. Keep video, direct, and torrent downloads
+              Opul is a simple torrent client and downloader for Mac. Keep video, direct, and torrent downloads
               in focused Workspaces that feel at home on your Mac.
             </p>
             <div class={actions}>

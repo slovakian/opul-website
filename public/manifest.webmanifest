@@ -1,7 +1,7 @@
 {
   "name": "Opul",
   "short_name": "Opul",
-  "description": "A native macOS download manager.",
+  "description": "A simple torrent client and downloader for Mac.",
   "start_url": "/",
   "display": "browser",
   "background_color": "#ffffff",
